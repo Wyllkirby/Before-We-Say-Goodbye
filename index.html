@@ -42,6 +42,8 @@ button{font:inherit;font-size:.8em;background:#1b1a33dd;color:#fff;border:1px so
 .gt small{color:#bbc}.gc.lk.sc{border-color:#ffd36b66}.gc.sc2{border-color:#ffd36b;box-shadow:0 0 1.2em #ffd36b55}#ov .endimg{max-height:50%;max-width:70%;object-fit:contain;border-radius:.6em;box-shadow:0 0 2em #000c;animation:in 1.6s}.ch-sec,#ch button.sec{border-color:#ffd36b!important;color:#ffe9a8;box-shadow:0 0 1em #ffd36b77}
 .gtabs{display:flex;gap:.4em}.gtabs button.on{background:var(--a)}.gcount{font-size:.75em;opacity:.7}.gph span{font-size:3.2em}
 .gph{width:100%;height:11.5em;border-radius:.5em;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 30%,#3b3470,#14122a);border:1px solid #fff2;box-sizing:border-box}
+#fs{position:absolute;right:.5%;bottom:3.2%;z-index:70;width:1.9em;height:1.9em;padding:0;display:flex;align-items:center;justify-content:center;background:#0000;border:1px solid #fff3;border-radius:.6em;opacity:.4;transition:opacity .25s,background .25s}
+#fs svg{width:1.05em;height:1.05em;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 2px #000a)}#fs:hover,#fs:focus-visible{opacity:1;background:#1b1a33aa}
 </style></head><body><div id=g>
 <div id=bg></div><div id=rn></div><div id=st></div><canvas id=pt></canvas><div id=tod></div><div id=vg></div><div id=tz></div><div id=cap></div><div id=nt onclick="pbClick()"></div><div id=db><div id=nm></div><div id=tx></div></div><div id=ch></div>
 <div id=hud><button onclick="hist()">Log</button><button id=bs onclick="tg('sk')">Skip</button><button id=ba onclick="tg('au')">Auto</button><button onclick="hide()">Hide</button><button onclick="pts()">♥</button><button onclick="sv(1)">Save</button><button onclick="menu()">Menu</button><button id=pb onclick="pbClick()" title="Phone (P)">📱<i id=bd></i></button></div>
@@ -95,7 +97,7 @@ function say(n,t){t=N(t);mode='say';S.h.push([n,t]);if(S.h.length>150)S.h.shift(
 function fin(){mode='done';if(au||sk)tt=setTimeout(()=>{if(mode=='done')run()},sk?70:1500+S.t.length*30)}
 function card(ls_,f,img){ov('');let i=0;const n=()=>{if(i>=ls_.length){if(img&&A.cg&&A.cg[img]){const m=new Image();m.src=A.cg[img];m.className='endimg';$('ov').append(m);setTimeout(f,4200)}else setTimeout(()=>{cl();f()},1500);return}const d=el('div',N(ls_[i++]));d.style.cssText='animation:in 1.5s;max-width:80%';$('ov').append(d);setTimeout(n,2600)};n()}
 $('g').onclick=e=>{ctx();if(e.target.closest('button,#ph,#ov,#mn,#nt'))return;if(ho){hide();return}if(mode=='say'){clearInterval(ty);$('tx').textContent=S.t;fin()}else if(mode=='done'){clearTimeout(tt);run()}};
-document.onkeydown=e=>{if(e.target&&e.target.type=='text')return;if(e.key==' '||e.key=='Enter')$('g').click();if(e.key=='Control')sk=1;if(e.key=='h')hide();if(e.key=='p')pbClick()};
+document.onkeydown=e=>{if(e.target&&e.target.type=='text')return;if(e.key==' '||e.key=='Enter')$('g').click();if(e.key=='Control')sk=1;if(e.key=='h')hide();if(e.key=='f'||e.key=='F')fs();if(e.key=='p')pbClick()};
 function tg(k){if(k=='sk')sk=!sk;else au=!au;$('bs').style.background=sk?'#e87aa0':'';$('ba').style.background=au?'#e87aa0':'';if(mode=='done')fin()}
 function hide(){ho=!ho;$('db').style.opacity=ho?0:1;$('hud').style.opacity=ho?0:1}
 const ov=h=>{$('ov').innerHTML=h;$('ov').style.display='flex'},cl=()=>$('ov').style.display='none';
@@ -1141,6 +1143,17 @@ p2yes:[['p3y']]
 /* ===== secret ending: needs 28 affection (from vfinal) ===== */
 ST.eb[ST.eb.length-1][1].push(['I forgive you. Let’s try again.','','es','F>=28']);
 Object.assign(ST,{es:[['mu','love'],['F','...What?','s'],['m','I forgive you, Faith. It doesn’t erase anything. I’m saying I’d rather try again than keep counting your steps.'],['F','You shouldn’t. I hurt you.','d'],['m','You did. And you’re also the girl who reads out loud to nobody. Both are true.'],['F','...Then will you walk with me?','e'],['x'],['b','street'],['mu','love'],['n','We walked. Slowly. The school gate shrinking behind us, the orange sky stretching ahead.'],['F','It’s over with him. Properly. I told my family everything.','d'],['F','The late-night “busy”. The deleted chats. That part is mine to own, and I’m so sorry.','t'],['m','Then let’s do it differently. If you’re tired, say you’re tired.'],['F','And if you’re scared, you say you’re scared.','h'],['F','Deal?','e'],['m','Deal.'],['n','We stopped under the streetlight where I once waited for a message that never came.'],['F','Wyll...','e'],['sf','heart'],['m','She stepped closer. I stopped pretending I didn’t want to.'],['m','She hid her face against my shoulder, and I held on like I had been waiting my whole life for permission.'],['F','Thank you for coming back for me.','e'],['m','Thank you for letting me.'],['n','Somewhere, a phone buzzed. Neither of us reached for it.'],['k',['Forgiveness isn’t forgetting what broke us.','It’s choosing, one day at a time, to hold on anyway.','<b>A SECOND GOOD MORNING</b>','THE END.'],'es'],['e','sec']]});
+
+/* ===== transparent fullscreen button (F key also works) ===== */
+const FSE=document.documentElement,fsOn=()=>document.fullscreenElement||document.webkitFullscreenElement;
+function fs(){try{if(fsOn()){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{const r=FSE.requestFullscreen||FSE.webkitRequestFullscreen;if(!r)return toast('Fullscreen is not supported on this device');const p=r.call(FSE);p&&p.catch&&p.catch(()=>toast('Fullscreen is blocked here. Try opening the game in its own tab'))}}catch(e){toast('Fullscreen is not available here')}}
+(()=>{const b=el('button','');b.id='fs';b.title='Fullscreen (F)';b.setAttribute('aria-label','Toggle fullscreen');
+const IN='<svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',OUT='<svg viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
+const up=()=>{b.innerHTML=fsOn()?OUT:IN;b.title=fsOn()?'Exit fullscreen (F)':'Fullscreen (F)'};up();
+b.onclick=e=>{e.stopPropagation();fs();b.blur()};
+['fullscreenchange','webkitfullscreenchange'].forEach(t=>document.addEventListener(t,up));
+if(!(FSE.requestFullscreen||FSE.webkitRequestFullscreen))b.style.display='none';
+$('g').append(b)})();
 
 menu();
 </script></body></html>
